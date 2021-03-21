@@ -3,7 +3,7 @@ import React, { useState,useEffect } from 'react';
 
 import {actions} from '../Store/actions'
 import taskCrud from '../services/taskCrud';
-
+import './editAndCreateTask.css'
 function mapStateToProps(state) {
     return {
         user: state.userReducer.user
@@ -66,7 +66,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function EditAndCrea
 
 
             })
-            .catch((err)=>{ console.log(err)})
+            .catch((err)=>{alert("Sorry there is a problem on our site try later")})
             // addTask({userId:user._id,title: title,completed:completed})
          }
          
@@ -75,7 +75,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function EditAndCrea
 
     return (
         <>
-           <label>title</label>
+           {/* <label>title</label>
            <input type="text" value={title}  onChange={(e)=>setTitle(e.target.value)}></input>
            <label>completed</label>
            <input
@@ -84,7 +84,22 @@ export default connect(mapStateToProps, mapDispatchToProps)(function EditAndCrea
                 checked={completed}
               />
               <button onClick={saveTask}>save</button>
-              {flagSuccess? <h1> saved successfuly</h1>:""}
+              {flagSuccess? <h1> saved successfuly</h1>:""} */}
+                    <div className="ff" >
+            <div className="form-group">
+         <label className="text-info">title</label><br/>
+           <input  id="title" type="text" value={title}  onChange={(e)=>setTitle(e.target.value)}></input>
+           </div>
+           <div id="complated"className="form-group">
+           <label>completed</label>
+           <input
+                type="checkbox"
+                onChange={selectItemMy}
+                checked={completed}
+              />
+              </div>
+              <button className="b" onClick={saveTask}>save</button>
+              </div> 
         </>
     );
 })

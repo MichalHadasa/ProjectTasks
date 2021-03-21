@@ -65,3 +65,9 @@
   width:80%;
   margin: auto;
 }
+.n{
+  cursor: pointer;
+  position: absolute;
+  top: 0%;
+  right: 3%;
+}

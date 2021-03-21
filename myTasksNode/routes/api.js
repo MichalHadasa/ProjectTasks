@@ -13,4 +13,5 @@ router.post('/saveTask',authenticateToken,task.saveTask)
 router.get('/getTaskByUserId/:id',authenticateToken,task.getTaskByUserId)
 router.delete('/deleteTask/:id',authenticateToken,task.deleteTask);
 router.put('/updateTask/:id',authenticateToken,task.updateTask);
+router.post('/forgetPassword',user.forgetPassword)
 module.exports=router;

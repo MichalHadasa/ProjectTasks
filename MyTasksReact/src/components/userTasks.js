@@ -51,7 +51,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function UserTasks(p
       taskCrud.getTasksByUserId(user._id)
       .then((data)=>{
         setTasks(data)
-      }).catch((err)=>{console.log(err)})
+      }).catch((err)=>{alert("Sorry there is a problem on our site try later")})
       // getTasksByUserId(user._id);
 
       }, []);
@@ -68,7 +68,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function UserTasks(p
       taskCrud.deleteTask(taskToDelete._id)
       .then((data)=>{
         deleteTask(taskToDelete._id);
-      }).catch((err)=>{console.log(err)})
+      }).catch((err)=>{alert("Sorry there is a problem on our site try later")})
       }
       function editTask(e,index){
         debugger
@@ -82,7 +82,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function UserTasks(p
     return (
         <>
           
-     {tasks.map((task, index) => (
+     {/* {tasks.map((task, index) => (
        <Card style={{width:"13rem", height:"10%", border: 'transparent',direction:'rtl',padding: '0.01rem'}}  key={index}>
        <Card.Header>Task {index}</Card.Header>
        <Card.Body className="card-body" style={{fontSize:"80%",height:"40%"}}>
@@ -111,7 +111,40 @@ export default connect(mapStateToProps, mapDispatchToProps)(function UserTasks(p
           </Button>
         </Modal.Footer>
       </Modal>
-      <Link to="/tasks">למשימות</Link>
+      <Link to="/tasks">למשימות</Link> */}
+          <div className="d"> 
+     <div className="add">
+      <Button id="bj" className="but" variant="secondary"onClick={addTask}>add new task</Button>
+      <Link  to="/tasks">add existing task</Link></div>
+     {tasks.map((task, index) => (
+       <Card  key={index} >
+       <Card.Header>Task {index+1}</Card.Header>
+       <Card.Body className="card-body" style={{fontSize:"80%",height:"40%"}}>
+       <Card.Text className="card-text">
+         {task.title}
+         </Card.Text>
+       { task.completed?  <Card.Title className="card-title">task accomplished </Card.Title>
+       :<Card.Title className="card-title">Perform me </Card.Title>}
+         <Button  className="but" onClick={(e)=>deleteOneTask(e,index)}>delete me</Button>
+         <Button  className="but" onClick={(e)=>editTask(e,index)}>edit me</Button>
+       </Card.Body>
+        </Card>
+
+        ))}
+        </div>
+  
+     
+   <Modal overlayClassName="myoverlay" className="mymodal"  show={show} onHide={handleClose}>
+  < Modal.Header className="n"  onClick={handleClose}><h3>x</h3></Modal.Header>
+  
+        <Modal.Body> {flagNewTask? <EditAndCreateTask newTask={newTask} {...props}></EditAndCreateTask>:""}</Modal.Body>
+
+        <Modal.Footer>
+          {/* <Button className="but" >
+            Close
+          </Button> */}
+        </Modal.Footer>
+      </Modal>
         </>
     );
 })

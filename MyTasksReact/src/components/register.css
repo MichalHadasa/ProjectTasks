@@ -1,0 +1,27 @@
+#login-form{
+    width: 50% !important;
+    padding: 10px!important;
+    margin-top: 30px!important;
+}
+body {
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    height: 100vh;
+  }
+  #login .container #login-row #login-column #login-box {
+
+   
+    height: 320px;
+    border: 3px solid #7669e7;
+
+    border-radius: 6px
+    /* background-color: #7669e7; */
+  }
+  .form-group{
+      margin-top: 13px;
+      margin-left: 25px;
+  }
+#nn{
+    margin-left: 30px!important;
+}

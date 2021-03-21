@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import UserCrud from '../services/userCrud'
 import {compose} from "redux"; 
+import './register.css'
 function mapStateToProps(state) {
     return {
         user: state.userReducer.user
@@ -40,10 +41,10 @@ export default compose(withRouter,connect(mapStateToProps, mapDispatchToProps))(
                 ,email:userEmail,password:userPassword})
                 .then((data)=>{
                     setUser(data)
-                    history.push('/UserTasks');
+                    history.push('/tasks');
 
                 })
-                .catch((err)=>{alert(err)})   
+                .catch((err)=>{alert("Sorry there is a problem on our site try later")})   
             // updateUser({_id:user._id,firstName:userFirstName,lastName:userLastName
             //     ,email:userEmail,password:userPassword})
         }
@@ -55,7 +56,7 @@ export default compose(withRouter,connect(mapStateToProps, mapDispatchToProps))(
                     history.push('/tasks');
 
                 })
-                .catch((err)=>{alert(err)}) 
+                .catch((err)=>{alert(err.messeg)}) 
             // registerUser({firstName:userFirstName,lastName:userLastName
             //     ,email:userEmail,password:userPassword});
 
@@ -81,7 +82,7 @@ export default compose(withRouter,connect(mapStateToProps, mapDispatchToProps))(
     return (
         <>
        
-      
+{/*       
            <div id="login">
      
      <div className="container">
@@ -115,6 +116,44 @@ export default compose(withRouter,connect(mapStateToProps, mapDispatchToProps))(
                         
              
                
+                     </div>
+                     </div>
+                     </div>
+                     </div>
+                     
+            </div> */}
+            
+           <div id="login">
+     
+     <div className="container" >
+         <div id="login-row" className="row justify-content-center align-items-center">
+             <div id="login-column" className="col-md-6">
+                 <div id="login-box" className="col-md-12">
+                     <form id="login-form" className="form" action="" method="post">
+                         <div className="form-group">
+                         <label  className="text-info">email:</label>
+           {flagUpdateUser==false?<input type="text" value={userEmail} onChange={(e)=>setUserEmail(e.target.value)}></input>
+           :<label>{userEmail}</label>}
+                         </div>
+                        
+                         <div className="form-group">
+                         <label  className="text-info" >firstName:</label>
+                        <input type="text" value={userFirstName}  onChange={(e)=>setUserFirstName(e.target.value)}></input>
+                         </div>
+                         <div className="form-group">
+                         <label  className="text-info">lastName:</label>
+                         <input type="text" value={userLastName}  onChange={(e)=>setUserLastName(e.target.value)}></input>
+                         </div>
+                         <div className="form-group">
+                         <label>password:</label>
+           <input type="text" value={userPassword}  onChange={(e)=>setUserPassword(e.target.value)}></input>
+           </div>
+                         <div className="form-group">
+                         <button className="btn btn-info btn-md" onClick={save} >save</button>
+                         </div>
+                         <button className="btn btn-info btn-md" onClick={toLogin} >to login</button>
+             
+                     </form>
                      </div>
                      </div>
                      </div>

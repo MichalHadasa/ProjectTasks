@@ -57,7 +57,8 @@ class UserCrud{
             resolve(user)
             // return user;
             // dispatch(actions.setUser(user));
-          })  
+          })
+          .catch((err)=>{reject({messeg:'Sorry there is a problem on our site try later'})})  
           })
             .catch((error) => {
               // return { _id:0,
@@ -65,7 +66,7 @@ class UserCrud{
               //     lastName: "",
               //     email:"",
               //     password:""};
-              reject("err")
+              reject({messeg:'Incorrect username or password'})
             });
             
     
@@ -87,13 +88,13 @@ class UserCrud{
               resolve(user) ;
               // dispatch(actions.setUser(user));
             }).catch(err=>{
-              reject({messeg:'rey later'})
+              reject({messeg:'Sorry there is a problem on our site try later'})
                 
             })
-            console.log('hiiii')})
+          })
               .catch((error) => {
                 debugger
-                console.log('Incorrect username or password');
+                
                 
                 reject({messeg:'Incorrect username or password'})
               });
@@ -116,6 +117,21 @@ class UserCrud{
       
         
       });
-      
+      forgetPassword1=(email)=> new Promise((resolve, reject)=>{
+        debugger;
+           axios.post(`http://localhost:4000/forgetPassword`,email)
+            .then(res => {
+              console.log("hgfd")
+              if(res.data='good')
+              console.log(res.data)
+              resolve(true)
+              debugger;
+            }).catch(err=>{
+               console.log(err);
+               reject(err)
+            })
+            debugger;
+        
+      });
 }
 export default new UserCrud();

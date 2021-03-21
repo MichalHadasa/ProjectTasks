@@ -45,7 +45,7 @@ export default connect(mapStateToProps,mapDispatchToProps)(function Drinks(props
                   
                   console.log(res.data) 
               }).catch(err => {
-                  alert(err)
+                alert("Sorry there is a problem on our site try later")
               })
       }, [])
   
@@ -61,12 +61,13 @@ export default connect(mapStateToProps,mapDispatchToProps)(function Drinks(props
           completed:tasksList[index].completed
         }
         if (checked) {
+          setSelectedTask(items => items.concat([item]));
           taskCrud.addTask(task)
             .then((data)=>{
                 add(data)
-                setSelectedTask(items => items.concat([item]));
+                // setSelectedTask(items => items.concat([item]));
             })
-            .catch((err)=>{ console.log(err)})
+            .catch((err)=>{ alert("Sorry there is a problem on our site try later")})
         
             //  addTask(task)
              debugger;
@@ -78,7 +79,7 @@ export default connect(mapStateToProps,mapDispatchToProps)(function Drinks(props
       .then((data)=>{
         setSelectedTask(items => items.filter(x => x !== item));
         deleteTask(task._id)
-      }).catch((err)=>{console.log(err)}) 
+      }).catch((err)=>{alert("Sorry there is a problem on our site try later")}) 
             
           }
         }
@@ -90,7 +91,8 @@ export default connect(mapStateToProps,mapDispatchToProps)(function Drinks(props
 
     return (
         <>
-            <Link to="/UserTasks">to my tasks</Link>
+        <h3>You can add tasks from the list!</h3>
+          
        
         {/* {tasksList.map((item, index) => (
           <li key={index} style={{ direction: "rtl" }}>
@@ -145,7 +147,7 @@ export default connect(mapStateToProps,mapDispatchToProps)(function Drinks(props
         </tbody>
     </table>
     </div>
-
+    <Link to="/UserTasks"><h4>to my tasks</h4></Link>
          
    
        </>

@@ -1,6 +1,6 @@
 const User = require("../models/User")
 const jwt = require('jsonwebtoken')
-
+const nodemailer = require('nodemailer');
 const saveUser = async (req, res) => {
     console.log(req.body);
     let user = new User(req.body);
@@ -52,4 +52,42 @@ const getAllUsers = async (req, res) => {
 
 }
 
-module.exports = { getAllUsers, saveUser, getUserByEmailAndPassword,updateUserById}
+const forgetPassword=async(req,res)=>{
+    console.log("jij");
+let user;
+console.log(user);
+  await User.findOne({email: req.body.email}, function(err,obj) {
+       user=obj;});
+
+if (user===null){
+    console.log("vhj");
+    res.status(400).send("Incorrect mail")
+}
+
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'michalhadasavr@gmail.com',
+      pass: 'vr46406319'
+    }
+  });
+
+  var mailOptions = {
+    from: 'michalhadasavr@gmail.com',
+    to: req.body.email,
+    subject: 'recover the password',
+    text: 'We have received a request to recover your password \n'+
+' If you did not request a password reset \n'+
+     'your password:' +user.password
+  };
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      res.status(400).json(error);
+      console.log(error);
+    } 
+    else {
+    res.status(200).send("good");
+    }
+   
+  });}
+module.exports = { getAllUsers, saveUser, getUserByEmailAndPassword,updateUserById,forgetPassword}

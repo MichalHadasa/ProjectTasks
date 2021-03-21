@@ -66,7 +66,7 @@ export default compose(withRouter,connect(mapStateToProps, mapDispatchToProps))(
 							{user._id!=0?<Link   title="user details" to={`/register/${user._id}`}> {user.firstName}  {user.lastName}
                
               </Link>:""}
-              {user._id!=0?<button   title="sign out" onClick={signOut}> sign Out </button>:""}
+              {user._id!=0?<button className="n"   title="sign out" onClick={signOut}> sign Out </button>:""}
               {/* {user._id!=0?<div>
       <DropdownButton id="dropdown-item-button" title="user">
       <Dropdown.Item as="button" onClick={toEdit}>Edit your details</Dropdown.Item>

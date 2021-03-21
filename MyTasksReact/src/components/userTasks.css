@@ -60,4 +60,146 @@
   .sc-gzVnrw{
     display: none!important;
   }
+  .card{
+    width: fit-content;
+    border: none;
+    background: none;
+    float: left;
+  }
+  .card-body{
+    
+    padding: 10px;
+  }
+  .card-title{
+    text-align: center!important;
+    font-size:  100%;
+    font-weight: bolder;
+  }
+  .card-text{
+    text-align: center!important;
+    font-size: small;
+    font-weight: lighter;
+    margin: revert;
+  }
+  .mymodal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   
+    border: 1px solid #ccc;
+    background: #fff;
+    overflow: auto;
+    border-radius: 4px;
+    outline: none;
+    padding: 20px;
+  }
+  .d{
+    white-space: normal;
+    overflow-x: auto;
+    width: 100%;
+  }
+  Link{
+    margin-left: 20px;
+  }
+  .myoverlay  {
+    position: fixed!important;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75)!important;
+  }
+  .but{
+    height: 30px!important;
+    margin: 5px!important;
+    margin-top: 20px!important;
+    width: 80px;
+  }
+  .mymodal{
+    
+    width: 40%;
+    height: 70%;
+}
+.modal-body{
+  margin-left: 25%;
+  width: 50%!important;
+  padding: 10px;
+  margin-top: 15%!important;
+}
+.n{
+  
+    cursor: pointer;
+    position: absolute;
+    top: 0%;
+    right: 3%;
+ 
+  
+}
+  
+  .add{
+
+ width: 30%!important;
+text-align: center;
+
+  }
+  #bj{
+    height: 60px!important;
+    margin: 20px!important;
+  }
+  span {
+    content: "\00B7";
+    font-weight: 500;
+  }
+  .simple{
+    font-weight: 500;
+  }
+  .overlay {
+    position: absolute;
+    bottom: 0;
+    top:0;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.5); 
+    color: #f1f1f1;
+    opacity:0;
+    color: white;
+    font-size: 25px;
+    /* height: 185px !important; */
+    width:14rem;
+    text-align: center;
+    align-items: center;
+    padding-top: 40px !important;
+  }
+  .rav :hover .overlay {
+    opacity: 1;
+  }
+  .bi.bi-dash{
+    transform: rotate(90deg); 
+  }
+  .home{
+    top: 60px;
+    position: absolute;
+  }
+  .lgksPe {
+    width: 40px !important;
+    height: 40px !important;
+  }
+  .fyLrfx{
+    display: none!important;
+  } 
+  .sc-gzVnrw{
+    display: none!important;
+  }
+  .card{
+
+  
+  border: inset;
+  border-radius: 6px;
+  margin: auto;
+  margin-top: 30px;
+  margin-left: 20Px;
+  text-align: center;
+}
+.ff{
+  width: 100%!important;
+}
