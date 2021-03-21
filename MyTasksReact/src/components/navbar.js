@@ -1,19 +1,19 @@
 import React, { useState ,useEffect} from 'react';
 import { connect } from 'react-redux';
 import {
-    BrowserRouter as Router,
+    // BrowserRouter as Router,
     withRouter,
-    Switch,
-    Route,
+    // Switch,
+    // Route,
     Link,
-    useParams
+    // useParams
   } from "react-router-dom";
 import {actions} from '../Store/actions'
 import { compose } from "redux";
 import fire from '../firebase.js';
-import DropdownButton from 'react-bootstrap/DropdownButton'
-import Dropdown from 'react-bootstrap/Dropdown'
-import Navbar from 'react-bootstrap/Navbar'
+// import DropdownButton from 'react-bootstrap/DropdownButton'
+// import Dropdown from 'react-bootstrap/Dropdown'
+// import Navbar from 'react-bootstrap/Navbar'
 import './navbar.css'
 
 function mapStateToProps(state) {
@@ -47,6 +47,7 @@ export default compose(withRouter,connect(mapStateToProps, mapDispatchToProps))(
             email:"",
             password:""
           })
+          history.push('/login');
     }
     useEffect(function() {
         debugger
@@ -65,7 +66,7 @@ export default compose(withRouter,connect(mapStateToProps, mapDispatchToProps))(
 							{user._id!=0?<Link   title="user details" to={`/register/${user._id}`}> {user.firstName}  {user.lastName}
                
               </Link>:""}
-              {user._id!=0?<Link   title="sign out" onClick={signOut}> sign Out </Link>:""}
+              {user._id!=0?<button   title="sign out" onClick={signOut}> sign Out </button>:""}
               {/* {user._id!=0?<div>
       <DropdownButton id="dropdown-item-button" title="user">
       <Dropdown.Item as="button" onClick={toEdit}>Edit your details</Dropdown.Item>

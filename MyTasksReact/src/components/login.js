@@ -2,15 +2,11 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import './login.css';
 import {
-    BrowserRouter as Router,
     withRouter,
-    Switch,
-    Route,
-    Link,
-    useParams
   } from "react-router-dom";
 import {actions} from '../Store/actions'
 import {compose} from "redux"; 
+import UserCrud from '../services/userCrud'
 
 
 function mapStateToProps(state) {
@@ -21,19 +17,28 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    loginUser: (login_user) => dispatch(actions.loginUser(login_user))
+    // loginUser: (login_user) => dispatch(actions.loginUser(login_user)),
+    setUser:(user)=>dispatch(actions.setUser(user))
 
 })
 
 // e 1
 export default compose(withRouter,connect(mapStateToProps, mapDispatchToProps))(function Login(props) {
-    const { loginUser,history } = props;
+    const { history, setUser} = props;
     const [userEmail,setUserEmail]=useState("");
     const [userPassword,setUserPassword]=useState("");
-   function login(){
+   async function login(){
       debugger;
-        loginUser({userEmail:userEmail,userPassword:userPassword});
-        // history.push('/UserTasks');
+        UserCrud.loginPromiseUser({userEmail:userEmail,userPassword:userPassword})
+        .then((data)=>{
+            debugger
+        let user =data;
+        setUser(user)
+        history.push('/tasks');
+    })
+        .catch((err)=>{
+            debugger
+            console.log(err)})
     }
     function toRegister(){
         history.push('/register');
@@ -52,8 +57,8 @@ export default compose(withRouter,connect(mapStateToProps, mapDispatchToProps))(
            <button onClick={toRegister} >new user</button>
            <Link to="/UserTasks">לבית</Link>
            <Link to="/tasks">למשימות</Link> */}
-             <Link to="/UserTasks">לבית</Link>
-           <Link to="/tasks">למשימות</Link> 
+             {/* <Link to="/UserTasks">לבית</Link>
+           <Link to="/tasks">למשימות</Link>  */}
                
            <div id="login">
      
@@ -61,10 +66,10 @@ export default compose(withRouter,connect(mapStateToProps, mapDispatchToProps))(
             <div id="login-row" className="row justify-content-center align-items-center">
                 <div id="login-column" className="col-md-6">
                     <div id="login-box" className="col-md-12">
-                        <form id="login-form" className="form" action="" method="post">
+                        {/* <form id="login-form" className="form" > */}
                             <h3 className="text-center text-info">Login</h3>
                             <div className="form-group">
-                                <label htmlFor="username" className="text-info">email:</label><br/>
+                                <label htmlFor="username" className="text-info">email</label><br/>
                                 <input type="text"  onChange={(e)=>setUserEmail(e.target.value)}></input>
                             </div>
                            
@@ -78,7 +83,7 @@ export default compose(withRouter,connect(mapStateToProps, mapDispatchToProps))(
                             </div>
                            
                 
-                        </form>
+                        {/* </form> */}
                         </div>
                         </div>
                         </div>

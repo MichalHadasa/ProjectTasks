@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import React, { useState,useEffect } from 'react';
 
 import {actions} from '../Store/actions'
-
+import taskCrud from '../services/taskCrud';
 
 function mapStateToProps(state) {
     return {
@@ -12,21 +12,24 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    getTasksByUserId: (user_id) => dispatch(actions.getTasksByUserId(user_id)),
-    addTask:(task)=>dispatch(actions.addTask(task)),
-    deleteTask:(task_id)=>dispatch(actions.deleteTask(task_id)),
-    updateTask:(task)=>dispatch(actions.updateTask(task)),
-    setTasks:(tasks)=>dispatch(actions.setTasks(tasks))
+    // getTasksByUserId: (user_id) => dispatch(actions.getTasksByUserId(user_id)),
+    add:(task)=>dispatch(actions.add(task)),
+    // deleteTask:(task_id)=>dispatch(actions.deleteTask(task_id)),
+    // updateTask:(task)=>dispatch(actions.updateTask(task)),
+    // setTasks:(tasks)=>dispatch(actions.setTasks(tasks)),
+    update:(task)=>dispatch(actions.update(task))
 })
 
 // e 1
 export default connect(mapStateToProps, mapDispatchToProps)(function EditAndCreateTask(props) {
-    const { user,newTask ,addTask,updateTask} = props;
+    const { user,newTask ,add,update} = props;
     const [title,setTitle]=useState("");
     const [completed,setcCompleted]=useState(false);
     const [flag,setFlag]=useState(false);
+    const [flagSuccess,setFlagSuccess]=useState(false)
+   
     useEffect(function() {
-       if(newTask._id!=0){
+       if(newTask._id!==0){
         setTitle(newTask.title);
         setFlag(true);
         setcCompleted(newTask.completed);
@@ -43,11 +46,30 @@ export default connect(mapStateToProps, mapDispatchToProps)(function EditAndCrea
       }
       
      function saveTask(){
+         debugger
          if(flag){
-            updateTask({  _id:newTask._id,userId:newTask.userId,title: title,completed:completed})
+            taskCrud.updateTask({  _id:newTask._id,userId:newTask.userId,title: title,completed:completed})
+            .then((data)=>{
+                update(data)
+                setFlagSuccess(true);
+            })
+            .catch((err)=>{
+                console.log(err)
+            })
+            // updateTask({  _id:newTask._id,userId:newTask.userId,title: title,completed:completed})
 
-         }else
-          addTask({userId:user._id,title: title,completed:completed})
+         }else{
+            taskCrud.addTask({userId:user._id,title: title,completed:completed})
+            .then((data)=>{
+                add(data)
+                setFlagSuccess(true);
+
+
+            })
+            .catch((err)=>{ console.log(err)})
+            // addTask({userId:user._id,title: title,completed:completed})
+         }
+         
 
       }
 
@@ -62,7 +84,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function EditAndCrea
                 checked={completed}
               />
               <button onClick={saveTask}>save</button>
-               
+              {flagSuccess? <h1> saved successfuly</h1>:""}
         </>
     );
 })

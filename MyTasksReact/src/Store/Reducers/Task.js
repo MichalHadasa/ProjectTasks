@@ -23,7 +23,7 @@ const users = {
     debugger
     state.Tasks = [... state.Tasks, action.payload]
   },
-  delete(state, action) {
+  deleteTask(state, action) {
     debugger
     let tasks=state.Tasks.filter(task => task._id !== action.payload) ;
     state.Tasks=tasks;

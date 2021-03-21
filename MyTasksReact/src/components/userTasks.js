@@ -1,7 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import EditAndCreateTask from './editAndCreateTask';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
@@ -11,11 +10,11 @@ import {
 
 } from "react-router-dom";
 import {actions} from '../Store/actions'
-
-import {
-    Redirect
-} from "react-router-dom";
-import { func } from 'prop-types';
+import taskCrud from '../services/taskCrud';
+// import {
+//     Redirect
+// } from "react-router-dom";
+// import { func } from 'prop-types';
 import './userTasks.css';
 
 function mapStateToProps(state) {
@@ -27,51 +26,33 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    getTasksByUserId: (user_id) => dispatch(actions.getTasksByUserId(user_id)),
-    addTask:(task)=>dispatch(actions.addTask(task)),
+    // getTasksByUserId: (user_id) => dispatch(actions.getTasksByUserId(user_id)),
+    // addTask:(task)=>dispatch(actions.addTask(task)),
     deleteTask:(task_id)=>dispatch(actions.deleteTask(task_id)),
-    updateTask:(task)=>dispatch(actions.updateTask(task)),
+    // updateTask:(task)=>dispatch(actions.updateTask(task)),
     setTasks:(tasks)=>dispatch(actions.setTasks(tasks))
 })
 
 // e 1
 export default connect(mapStateToProps, mapDispatchToProps)(function UserTasks(props) {
-    // const { tasks,user,getTasksByUserId,deleteTask } = props;
-    const { user,getTasksByUserId,deleteTask } = props;
+    const { tasks,user,deleteTask ,setTasks} = props;
+    // const { user,getTasksByUserId,deleteTask } = props;
     const [newTask,setNewTask]=useState({_id: 0,userId:0,title: "",completed:false})
     const [flagNewTask,setFlagNewTask]=useState(false);
     const [show, setShow] = useState(false);
-    const [tasks,setTasks]=useState([
-       //   _id: 0,
-  //   userId:0,
-  //   title: "",
-  //   completed:false
-      {
-        userId: 1,
-        _id: 1,
-        title: "delectus aut autem",
-        completed: false
-      },
-      {
-        userId: 1,
-        _id: 2,
-        title: "quis ut nam facilis et officia qui",
-        completed: false
-      },
-      {
-        userId: 1,
-      _id: 3,
-        title: "fugiat veniam minus",
-        completed: false
-      },])
+    
    function handleClose(){
     setShow(false);
     setFlagNewTask(false)
    }
 
-    useEffect(function() {
+   useEffect(function() {
       debugger
-      getTasksByUserId(user._id);
+      taskCrud.getTasksByUserId(user._id)
+      .then((data)=>{
+        setTasks(data)
+      }).catch((err)=>{console.log(err)})
+      // getTasksByUserId(user._id);
 
       }, []);
       function addTask(){
@@ -83,7 +64,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(function UserTasks(p
     function  deleteOneTask(e,index){
       debugger
       let taskToDelete=tasks[index];
-      deleteTask(taskToDelete._id);
+     
+      taskCrud.deleteTask(taskToDelete._id)
+      .then((data)=>{
+        deleteTask(taskToDelete._id);
+      }).catch((err)=>{console.log(err)})
       }
       function editTask(e,index){
         debugger

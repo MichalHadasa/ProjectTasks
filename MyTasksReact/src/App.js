@@ -6,13 +6,12 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
-  useParams
+ 
 } from "react-router-dom";
 import Login from './components/login';
 import Register from './components/register';
 import Tasks from './components/tasks' 
-import Flash from './components/Flash'
+// import Flash from './components/Flash'
 import Test from './components/test';
 import UserTasks from './components/userTasks'
 import Navbar from './components/navbar';
@@ -69,17 +68,3 @@ function App() {
 }
 
 export default App;
-{/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}

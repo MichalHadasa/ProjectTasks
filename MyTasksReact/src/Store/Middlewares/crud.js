@@ -12,43 +12,70 @@ const createToken = () => {
   };
   return payloadHeader;
 }
-export const loginUser =  ({ dispatch, getState }) => next => action => {
-    debugger;
+// export const loginUser =  ({ dispatch, getState }) => next => action => {
+//     debugger;
 
-    // const handleSubmit = (e) => {
-    //   e.preventDefault();
-    //   fire.auth().signInWithEmailAndPassword(email, password)
-    //     .catch((error) => {
-    //       console.error('Incorrect username or password');
-    //     });
-    //   }
+//     // const handleSubmit = (e) => {
+//     //   e.preventDefault();
+//     //   fire.auth().signInWithEmailAndPassword(email, password)
+//     //     .catch((error) => {
+//     //       console.error('Incorrect username or password');
+//     //     });
+//     //   }
 
       
  
 
-    if (action.type === 'LOGIN_USER') {
-      fire.auth().signInWithEmailAndPassword(action.payload.userEmail, action.payload.userPassword)
-      .then(()=>{
-        debugger
-        const header =  createToken();
-        axios.get(`http://localhost:4000/login/${action.payload.userEmail}/${action.payload.userPassword}`,header)
-      .then(res => {
-        debugger;
-        console.log(res.data)
-        let user = res.data.user;
-        // localStorage.setItem("token", res.data.token );
-        localStorage.setItem("token", res.data.token );
-        dispatch(actions.setUser(user));
-      })  
-      })
-        .catch((error) => {
-          console.log('Incorrect username or password');
-        });
+//     if (action.type === 'LOGIN_USER') {
+//       fire.auth().signInWithEmailAndPassword(action.payload.userEmail, action.payload.userPassword)
+//       .then(()=>{
+//         debugger
+//         const header =  createToken();
+//         axios.get(`http://localhost:4000/login/${action.payload.userEmail}/${action.payload.userPassword}`,header)
+//       .then(res => {
+//         debugger;
+//         console.log(res.data)
+//         let user = res.data.user;
+//         // localStorage.setItem("token", res.data.token );
+//         localStorage.setItem("token", res.data.token );
+//         dispatch(actions.setUser(user));
+//       })  
+//       })
+//         .catch((error) => {
+//           console.log('Incorrect username or password');
+//         });
         
 
-    }
-    // remeber!!!!!!!!!!!
-    return next(action);
+//     }
+//     // remeber!!!!!!!!!!!
+//     return next(action);
+// };
+export const loginUser =  ({ dispatch, getState }) => next => action => {
+  debugger;
+
+  if (action.type === 'LOGIN_USER') {
+    fire.auth().signInWithEmailAndPassword(action.payload.userEmail, action.payload.userPassword)
+    .then(()=>{
+      debugger
+      const header =  createToken();
+      axios.get(`http://localhost:4000/login/${action.payload.userEmail}/${action.payload.userPassword}`,header)
+    .then(res => {
+      debugger;
+      console.log(res.data)
+      let user = res.data.user;
+      // localStorage.setItem("token", res.data.token );
+      localStorage.setItem("token", res.data.token );
+      dispatch(actions.setUser(user));
+    })  
+    })
+      .catch((error) => {
+        console.log('Incorrect username or password');
+      });
+      
+
+  }
+  // remeber!!!!!!!!!!!
+  return next(action);
 };
 export const registerUser = ({ dispatch, getState }) => next => action => {
   debugger;

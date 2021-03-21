@@ -4,13 +4,11 @@ import { connect } from 'react-redux';
 import {actions} from '../Store/actions'
 import './login.css'
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link,
-    useParams
+    useParams,
+    withRouter
 } from "react-router-dom";
-
+import UserCrud from '../services/userCrud'
+import {compose} from "redux"; 
 function mapStateToProps(state) {
     return {
         user: state.userReducer.user
@@ -19,14 +17,16 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    registerUser: (user) => dispatch(actions.registerUser(user)),
-    updateUser:(user)=>dispatch(actions.updateUser(user))
+    // registerUser: (user) => dispatch(actions.registerUser(user)),
+    // updateUser:(user)=>dispatch(actions.updateUser(user)),
+    setUser:(user)=>dispatch(actions.setUser(user))
+
 
 })
 
 // e 1
-export default connect(mapStateToProps, mapDispatchToProps)(function Register(props) {
-    const { registerUser,user,updateUser } = props;
+export default compose(withRouter,connect(mapStateToProps, mapDispatchToProps))(function Register(props) {
+    const { user,setUser,history } = props;
     const [userFirstName,setUserFirstName]=useState("");
     const [userLastName,setUserLastName]=useState("");
     const [userEmail,setUserEmail]=useState("");
@@ -34,18 +34,37 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Register(pr
     const {userId}=useParams()
     const [flagUpdateUser,setFlagUpdateUser]=useState(false)
   
-    function save(){
-        if(flagUpdateUser){     
-            updateUser({_id:user._id,firstName:userFirstName,lastName:userLastName
+    async function save(){
+        if(flagUpdateUser){  
+            UserCrud.updateUser({_id:user._id,firstName:userFirstName,lastName:userLastName
                 ,email:userEmail,password:userPassword})
+                .then((data)=>{
+                    setUser(data)
+                    history.push('/UserTasks');
+
+                })
+                .catch((err)=>{alert(err)})   
+            // updateUser({_id:user._id,firstName:userFirstName,lastName:userLastName
+            //     ,email:userEmail,password:userPassword})
         }
         else{
-            registerUser({firstName:userFirstName,lastName:userLastName
-                ,email:userEmail,password:userPassword});
+            UserCrud.registerPromiseUser({firstName:userFirstName,lastName:userLastName
+                    ,email:userEmail,password:userPassword})
+                .then((data)=>{
+                    setUser(data)
+                    history.push('/tasks');
+
+                })
+                .catch((err)=>{alert(err)}) 
+            // registerUser({firstName:userFirstName,lastName:userLastName
+            //     ,email:userEmail,password:userPassword});
 
         }
 
        
+    }
+    function toLogin(){
+        history.push('/login');
     }
     useEffect(()=>{
         debugger;
@@ -69,11 +88,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Register(pr
          <div id="login-row" className="row justify-content-center align-items-center">
              <div id="login-column" className="col-md-6">
                  <div id="login-box" className="col-md-12">
-                     <form id="login-form" className="form" action="" method="post">
+                   
                          <h3 className="text-center text-info">user</h3>
                          <div className="form-group">
                          <label>email   </label>
-           {flagUpdateUser==false?<input type="text" value={userEmail} onChange={(e)=>setUserEmail(e.target.value)}></input>
+           {flagUpdateUser===false?<input type="text" value={userEmail} onChange={(e)=>setUserEmail(e.target.value)}></input>
            :<label>{userEmail}</label>}
                          </div>
                         
@@ -91,10 +110,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Register(pr
            </div>
                          <div className="form-group">
                          <button className="btn btn-info btn-md" onClick={save} >save</button>
+                         <button className="btn btn-info btn-md" onClick={toLogin} >to login</button>
                          </div>
                         
              
-                     </form>
+               
                      </div>
                      </div>
                      </div>

@@ -10,17 +10,18 @@ import {
 } from "react-router-dom";
 
 import './tasks.css';
-
+import taskCrud from '../services/taskCrud';
 function mapStateToProps(state) {
     return {
-        user: state.userReducer.user
-     
+        user: state.userReducer.user,
+        tasks:state.tasksReducer.Tasks
     };
 }
 
 const mapDispatchToProps = (dispatch) => ({
     addTask:(task)=>dispatch(actions.addTask(task)),
-    deleteTask:(task)=>dispatch(actions.deleteTask(task))
+    deleteTask:(task)=>dispatch(actions.deleteTask(task)),
+    add:(task)=>dispatch(actions.add(task)),
 })
 
 
@@ -31,7 +32,7 @@ export default connect(mapStateToProps,mapDispatchToProps)(function Drinks(props
   const [tasksList,setTasksList]=useState([]);
 
   const [selectedTask, setSelectedTask] = useState([]);
-  const{user,addTask,deleteTask}=props
+  const{user,add,deleteTask,tasks}=props
       
   
       useEffect(() => {
@@ -60,14 +61,25 @@ export default connect(mapStateToProps,mapDispatchToProps)(function Drinks(props
           completed:tasksList[index].completed
         }
         if (checked) {
+          taskCrud.addTask(task)
+            .then((data)=>{
+                add(data)
+                setSelectedTask(items => items.concat([item]));
+            })
+            .catch((err)=>{ console.log(err)})
         
-             addTask(task)
+            //  addTask(task)
              debugger;
-            setSelectedTask(items => items.concat([item]));
+          
         } else {
           if(selectedTask.includes(item)){
-            setSelectedTask(items => items.filter(x => x !== item));
-            deleteTask(task)
+            let task= tasks.filter(x => x.title === item.title && x.completed===item.completed)[0];
+            taskCrud.deleteTask(task._id)
+      .then((data)=>{
+        setSelectedTask(items => items.filter(x => x !== item));
+        deleteTask(task._id)
+      }).catch((err)=>{console.log(err)}) 
+            
           }
         }
         debugger;

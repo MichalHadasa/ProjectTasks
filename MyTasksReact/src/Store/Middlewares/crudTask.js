@@ -41,25 +41,25 @@ export const getTasksByUserId = ({ dispatch, getState }) => next => action => {
     // remeber!!!!!!!!!!!
     return next(action);
 };
-export const deleteTask = ({ dispatch, getState }) => next => action => {
-    debugger;
-    if (action.type === 'DELETE_TASK') {
-        axios.delete(`http://localhost:4000/deleteTask/${action.payload}` , {
-          headers: {
-            authorization: `token ${ localStorage.getItem("token")}`
-          }
-        } )
-        .then(res => {
-          dispatch(actions.delete(action.payload));
-        }).catch(err=>{
-           console.log(err);
+// export const deleteTask = ({ dispatch, getState }) => next => action => {
+//     debugger;
+//     if (action.type === 'DELETE_TASK') {
+//         axios.delete(`http://localhost:4000/deleteTask/${action.payload}` , {
+//           headers: {
+//             authorization: `token ${ localStorage.getItem("token")}`
+//           }
+//         } )
+//         .then(res => {
+//           dispatch(actions.delete(action.payload));
+//         }).catch(err=>{
+//            console.log(err);
             
-        })
+//         })
 
-    }
-    // remeber!!!!!!!!!!!
-    return next(action);
-};
+//     }
+//     // remeber!!!!!!!!!!!
+//     return next(action);
+// };
 export const updateTask = ({ dispatch, getState }) => next => action => {
     debugger;
     if (action.type === 'UPDATE_TASK') {
