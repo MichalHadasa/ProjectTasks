@@ -11,11 +11,12 @@ import {
 
 } from "react-router-dom";
 import {actions} from '../Store/actions'
+
 import {
     Redirect
 } from "react-router-dom";
 import { func } from 'prop-types';
-
+import './userTasks.css';
 
 function mapStateToProps(state) {
     return {
@@ -35,10 +36,34 @@ const mapDispatchToProps = (dispatch) => ({
 
 // e 1
 export default connect(mapStateToProps, mapDispatchToProps)(function UserTasks(props) {
-    const { tasks,user,getTasksByUserId,deleteTask } = props;
+    // const { tasks,user,getTasksByUserId,deleteTask } = props;
+    const { user,getTasksByUserId,deleteTask } = props;
     const [newTask,setNewTask]=useState({_id: 0,userId:0,title: "",completed:false})
     const [flagNewTask,setFlagNewTask]=useState(false);
     const [show, setShow] = useState(false);
+    const [tasks,setTasks]=useState([
+       //   _id: 0,
+  //   userId:0,
+  //   title: "",
+  //   completed:false
+      {
+        userId: 1,
+        _id: 1,
+        title: "delectus aut autem",
+        completed: false
+      },
+      {
+        userId: 1,
+        _id: 2,
+        title: "quis ut nam facilis et officia qui",
+        completed: false
+      },
+      {
+        userId: 1,
+      _id: 3,
+        title: "fugiat veniam minus",
+        completed: false
+      },])
    function handleClose(){
     setShow(false);
     setFlagNewTask(false)
@@ -73,11 +98,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(function UserTasks(p
         <>
           
      {tasks.map((task, index) => (
-       <Card border="primary" style={{ width: '18rem' }}  key={index}>
+       <Card style={{width:"13rem", height:"10%", border: 'transparent',direction:'rtl',padding: '0.01rem'}}  key={index}>
        <Card.Header>Task {index}</Card.Header>
-       <Card.Body>
-       { task.completed?  <Card.Title>task accomplished </Card.Title>:<Card.Title>Perform me </Card.Title>}
-         <Card.Text>
+       <Card.Body className="card-body" style={{fontSize:"80%",height:"40%"}}>
+       { task.completed?  <Card.Title className="card-title">task accomplished </Card.Title>
+       :<Card.Title className="card-title">Perform me </Card.Title>}
+         <Card.Text className="card-text">
          {task.title}
          </Card.Text>
          <Button variant="secondary" onClick={(e)=>deleteOneTask(e,index)}>delete me</Button>

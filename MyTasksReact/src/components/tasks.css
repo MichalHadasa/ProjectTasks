@@ -1,0 +1,25 @@
+#sailorTableArea{
+    max-height: 300px;
+   
+    /* overflow-y: auto; */
+}
+#sailorTable{
+    white-space: normal;
+    overflow-x: auto;
+}
+tbody {
+    display:block;
+    height:200px;
+    overflow:auto;
+}
+thead, tbody tr {
+    display:table;
+    width:100%;
+    table-layout:fixed;
+    border: 3px
+}
+#sailorTable{
+    margin-top: 5%;
+    border: 3px
+}
+

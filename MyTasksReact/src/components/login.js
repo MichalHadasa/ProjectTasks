@@ -30,8 +30,10 @@ export default compose(withRouter,connect(mapStateToProps, mapDispatchToProps))(
     const { loginUser,history } = props;
     const [userEmail,setUserEmail]=useState("");
     const [userPassword,setUserPassword]=useState("");
-    function login(){
+   function login(){
+      debugger;
         loginUser({userEmail:userEmail,userPassword:userPassword});
+        // history.push('/UserTasks');
     }
     function toRegister(){
         history.push('/register');
@@ -40,34 +42,51 @@ export default compose(withRouter,connect(mapStateToProps, mapDispatchToProps))(
 
 
     return (
-       
-           <div  className="login-reg-panel">
-           
-                                        
-                 <div className="register-info-box">
-                     <h2>לצפיה בקורות החיים</h2>
-                     <label id="label-login" htmlFor="log-login-show" >לחץ</label>
-                     <input type="radio" name="active-log-panel" id="log-login-show"/>
-                 </div>
-                                     
-                 <div className="white-panel">
-               
-                     <div className="home">
+       <>
                  
-                     <label>email</label>
+                     {/* <label>email</label>
            <input type="text"  onChange={(e)=>setUserEmail(e.target.value)}></input>
            <label>password</label>
            <input type="text"  onChange={(e)=>setUserPassword(e.target.value)}></input>
            <button onClick={login} >login</button>
            <button onClick={toRegister} >new user</button>
            <Link to="/UserTasks">לבית</Link>
-           <Link to="/tasks">למשימות</Link>
-                  
-                     </div>
-                 </div>
-             </div>
-
+           <Link to="/tasks">למשימות</Link> */}
+             <Link to="/UserTasks">לבית</Link>
+           <Link to="/tasks">למשימות</Link> 
                
+           <div id="login">
+     
+        <div className="container">
+            <div id="login-row" className="row justify-content-center align-items-center">
+                <div id="login-column" className="col-md-6">
+                    <div id="login-box" className="col-md-12">
+                        <form id="login-form" className="form" action="" method="post">
+                            <h3 className="text-center text-info">Login</h3>
+                            <div className="form-group">
+                                <label htmlFor="username" className="text-info">email:</label><br/>
+                                <input type="text"  onChange={(e)=>setUserEmail(e.target.value)}></input>
+                            </div>
+                           
+                            <div className="form-group">
+                                <label htmlFor="password" className="text-info">Password</label><br/>
+                                <input type="text"  onChange={(e)=>setUserPassword(e.target.value)}></input>
+                            </div>
+                            <div className="form-group">
+                            <button className="btn btn-info btn-md" onClick={login} >login</button>
+                            <button className="btn btn-info btn-md" onClick={toRegister} >new user</button>
+                            </div>
+                           
+                
+                        </form>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        
+               </div>
+                 </> 
+            
        
     );
 })

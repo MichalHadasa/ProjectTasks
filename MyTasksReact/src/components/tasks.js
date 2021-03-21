@@ -9,7 +9,7 @@ import {
 
 } from "react-router-dom";
 
-
+import './tasks.css';
 
 function mapStateToProps(state) {
     return {
@@ -79,8 +79,8 @@ export default connect(mapStateToProps,mapDispatchToProps)(function Drinks(props
     return (
         <>
             <Link to="/UserTasks">to my tasks</Link>
-        <ul>
-        {tasksList.map((item, index) => (
+       
+        {/* {tasksList.map((item, index) => (
           <li key={index} style={{ direction: "rtl" }}>
             <label>
               {item.title}
@@ -93,26 +93,49 @@ export default connect(mapStateToProps,mapDispatchToProps)(function Drinks(props
             </label>
           </li>
         ))}
-      </ul>
+      </ul> */}
+
+
+
+<div className="table-responsive" id="sailorTableArea">
+    <table id="sailorTable" className="table table-striped table-bordered" width="100%">
+ 
+        <thead>
+            <tr>
+                <th>title</th>
+                <th>completed</th>
+                <th>check me </th>
+                
+            </tr>
+        </thead>
+        <tbody>
+      
+            {tasksList.map((item, index) => (
+          <tr key={index} style={{ direction: "rtl" }}>
+            {/* <label> */}
+            
+           
+             <td> 
+               <input
+                type="checkbox"
+                onChange={(e)=>selectTask(e,index)}
+                checked={selectedTask.includes(item)}
+              /></td>
+             
+                 <td> {item.completed?<p>V</p>:<p>X</p>}</td>
+                <td>{item.title}</td>
+            {/* </label> */}
+            </tr>
+        ))}
+        
+          
+       
+        </tbody>
+    </table>
+    </div>
 
          
-
-           {/* {tasksList?
-           <ul >
-        {tasksList.map(item => (
-          <li key={item.id} style={{ direction: "rtl" }}>
-            <label>
-              {item}
-              <input
-                type="checkbox"
-                onChange={selectTask}
-                checked={selectedTask.includes(item)}
-              />
-            </label>
-          </li>
-        ))}
-      </ul>:""} */}
    
-        // </>
+       </>
     );
 })

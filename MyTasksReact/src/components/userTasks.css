@@ -1,0 +1,63 @@
+.card{
+    width: fit-content;
+    border: none;
+    background: none;
+    float: left;
+  }
+  .card-body{
+    padding: 0.25rem;
+  }
+  .card-title{
+    text-align: right!important;
+    font-size:  100%;
+    font-weight: bolder;
+  }
+  .card-text{
+    text-align: right!important;
+    font-size: small;
+    font-weight: lighter;
+  }
+  span {
+    content: "\00B7";
+    font-weight: 500;
+  }
+  .simple{
+    font-weight: 500;
+  }
+  .overlay {
+    position: absolute;
+    bottom: 0;
+    top:0;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.5); 
+    color: #f1f1f1;
+    opacity:0;
+    color: white;
+    font-size: 25px;
+    /* height: 185px !important; */
+    width:14rem;
+    text-align: center;
+    align-items: center;
+    padding-top: 40px !important;
+  }
+  .rav :hover .overlay {
+    opacity: 1;
+  }
+  .bi.bi-dash{
+    transform: rotate(90deg); 
+  }
+  .home{
+    top: 60px;
+    position: absolute;
+  }
+  .lgksPe {
+    width: 40px !important;
+    height: 40px !important;
+  }
+  .fyLrfx{
+    display: none!important;
+  } 
+  .sc-gzVnrw{
+    display: none!important;
+  }
+  

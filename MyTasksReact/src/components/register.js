@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import {actions} from '../Store/actions'
+import './login.css'
 import {
     BrowserRouter as Router,
     Switch,
@@ -60,17 +61,46 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Register(pr
 
     return (
         <>
-        <label>email   </label>
+       
+      
+           <div id="login">
+     
+     <div className="container">
+         <div id="login-row" className="row justify-content-center align-items-center">
+             <div id="login-column" className="col-md-6">
+                 <div id="login-box" className="col-md-12">
+                     <form id="login-form" className="form" action="" method="post">
+                         <h3 className="text-center text-info">user</h3>
+                         <div className="form-group">
+                         <label>email   </label>
            {flagUpdateUser==false?<input type="text" value={userEmail} onChange={(e)=>setUserEmail(e.target.value)}></input>
            :<label>{userEmail}</label>}
-         <label>firstName   </label>
-           <input type="text" value={userFirstName}  onChange={(e)=>setUserFirstName(e.target.value)}></input>
-           <label>lastName</label>
-           <input type="text" value={userLastName}  onChange={(e)=>setUserLastName(e.target.value)}></input>
-           <label>password</label>
+                         </div>
+                        
+                         <div className="form-group">
+                         <label>firstName   </label>
+                        <input type="text" value={userFirstName}  onChange={(e)=>setUserFirstName(e.target.value)}></input>
+                         </div>
+                         <div className="form-group">
+                         <label>lastName</label>
+                         <input type="text" value={userLastName}  onChange={(e)=>setUserLastName(e.target.value)}></input>
+                         </div>
+                         <div className="form-group">
+                         <label>password</label>
            <input type="text" value={userPassword}  onChange={(e)=>setUserPassword(e.target.value)}></input>
-           <button onClick={save} >save</button>
-           
+           </div>
+                         <div className="form-group">
+                         <button className="btn btn-info btn-md" onClick={save} >save</button>
+                         </div>
+                        
+             
+                     </form>
+                     </div>
+                     </div>
+                     </div>
+                     </div>
+                     
+            </div>
                
         </>
     );
